@@ -3,7 +3,7 @@
 <plist version="1.0">
 <dict>
 	<key>AMApplicationBuild</key>
-	<string>509</string>
+	<string>512</string>
 	<key>AMApplicationVersion</key>
 	<string>2.10</string>
 	<key>AMDocumentVersion</key>
@@ -51,7 +51,7 @@
 				<key>ActionParameters</key>
 				<dict>
 					<key>source</key>
-					<string>set bootSystem to "windows"tell application "System Preferences"	activate	set current pane to pane id "com.apple.preference.startupdisk"		repeat until exists window "Startup Disk"		delay 0.5	end repeat		tell application "System Events" to tell process "System Preferences" to tell window "Startup Disk"		set promptedForPassword to false				repeat until exists button "Click the lock to prevent further changes." -- wait for admin rights			if not (exists sheet 1) then -- if password prompt is not open				if promptedForPassword = true then return -- stop the script if password prompt was cancelled								set promptedForPassword to true								click button "Click the lock to make changes."			end if						delay 0.5		end repeat				set focused of list 1 of scroll area 1 to true				set systems to every group of list 1 of scroll area 1				-- go to the first system		repeat with n from 1 to count of systems			key code 123 -- left arrow		end repeat				-- go right and look for the bootSystem		repeat with n from 1 to count of systems			if value of static text 1 contains bootSystem then				click button "Restart…"				click button "Restart" of sheet 1				return -- exit the script			end if						key code 124 -- right arrow		end repeat			end tellend tell</string>
+					<string>set bootSystem to "windows"do shell script "if ! mount | grep -s BOOTCAMP &gt; /dev/null; then sudo mkdir -p /Volumes/BOOTCAMP; sudo mount -t ntfs /dev/disk0s3 /Volumes/BOOTCAMP; sleep 1; fi" with administrator privilegestell application "System Preferences"	activate	set current pane to pane id "com.apple.preference.startupdisk"		repeat until exists window "Startup Disk"		delay 0.5	end repeat		tell application "System Events" to tell process "System Preferences" to tell window "Startup Disk"		set promptedForPassword to false				repeat until exists button "Click the lock to prevent further changes." -- wait for admin rights			if not (exists sheet 1) then -- if password prompt is not open				if promptedForPassword = true then return -- stop the script if password prompt was cancelled								set promptedForPassword to true								click button "Click the lock to make changes."			end if						delay 0.5		end repeat				set focused of list 1 of scroll area 1 to true				set systems to every group of list 1 of scroll area 1				-- go to the first system		repeat with n from 1 to count of systems			key code 123 -- left arrow		end repeat				-- go right and look for the bootSystem		repeat with n from 1 to count of systems			if value of static text 1 contains bootSystem then				click button "Restart…"				click button "Restart" of sheet 1				return -- exit the script			end if						key code 124 -- right arrow		end repeat			end tellend tell</string>
 				</dict>
 				<key>BundleIdentifier</key>
 				<string>com.apple.Automator.RunScript</string>
@@ -102,12 +102,10 @@ end run</string>
 						<string>0</string>
 					</dict>
 				</dict>
-				<key>conversionLabel</key>
-				<integer>0</integer>
 				<key>isViewVisible</key>
 				<integer>1</integer>
 				<key>location</key>
-				<string>1084.250000:1151.000000</string>
+				<string>449.000000:714.000000</string>
 				<key>nibPath</key>
 				<string>/System/Library/Automator/Run AppleScript.action/Contents/Resources/Base.lproj/main.nib</string>
 			</dict>
